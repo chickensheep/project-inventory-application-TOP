@@ -1,0 +1,1 @@
+this is ye project inventory application. ehhhh dunno like wats the purpose of this like i feel like its the same as the project shopping cart but ehhhhh u can edit the items in the store la and category oso yeye oanonogfnwqroi
