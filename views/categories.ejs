@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Categories</title>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<%function isDark(hex) { const [r, g, b] = hex.replace('#',
+		'').match(/.{2}/g).map(x => parseInt(x, 16) / 255); const luminance = 0.2126
+		* r + 0.7152 * g + 0.0722 * b; return luminance < 0.5; }%>
+		<div class="container">
+			<%-include ("navigationBar")%>
+			<div class="categoriesHeader">
+				<header>Categories</header>
+				<a href="/categories/new" class="addButton">+ Add category</a>
+			</div>
+			<div class="categoriesDiv">
+				<%categories.forEach((element)=>{%>
+				<a
+					class="categoryDiv"
+					style="background-color: <%=element.colour%>; color:<%=isDark(element.colour)?"white":"black"%>"
+					href="../items/?category=<%=element.category%>"
+				>
+					<%=element.category%>
+				</a>
+				<%})%>
+			</div>
+		</div>
+	</body>
+</html>

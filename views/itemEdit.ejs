@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Item Edit</title>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<%function isDark(hex) { const [r, g, b] = hex.replace('#',
+		'').match(/.{2}/g).map(x => parseInt(x, 16) / 255); const luminance = 0.2126
+		* r + 0.7152 * g + 0.0722 * b; return luminance < 0.5; }%> <% const
+		itemNameNoSpace = item[0].item.replace(/\s+/g, "") %>
+		<div class="container">
+			<header>Editing Item (<%=item[0].item%>)...</header>
+			<div class="itemEditDiv">
+				<form
+					action="/items/<%=itemNameNoSpace%>/edit"
+					method="POST"
+					class="itemEditForm"
+				>
+					<!-- prettier-ignore -->
+					<div class="itemEditLeft">
+                            <img src=<%=item[0].image%> alt="" id="itemEditPreview" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" 
+							/>
+							<span style="display: none; padding-bottom: 20px">
+								No image found!!!
+							</span>
+                            <div class="itemEditButtons">
+                                <button type="submit" class="smallButton">Confirm</button>
+                                <a href="../" class="smallButton">Cancel</a>
+                            </div>
+                        </div>
+					<div
+						class="itemEditRight"
+						style="background-color: <%=item[0].colour%>"
+					>
+						<div
+							class="itemEditLabel"
+							style="color:<%=isDark(item[0].colour)?'white':'black'%>"
+						>
+							<label for="itemEditName">Name: </label>
+							<label for="itemEditImage">Image url: </label>
+							<label for="itemEditCategory">Category: </label>
+						</div>
+						<div class="itemEditInput">
+							<!-- prettier-ignore -->
+							<input value="<%=item[0].item%>" type="text" id="itemEditName" name="itemEditName" required/>
+							<div class="itemEditImageDiv">
+								<input
+									value="<%=item[0].image%>"
+									type="text"
+									id="itemEditImage"
+									name="itemEditImage"
+									required
+								/>
+								<div
+									class="editClickHereDiv"
+									style="color:<%=isDark(item[0].colour)?'white':'black'%>"
+								>
+									Click
+									<a href="https://mc.nerothe.com" target="_blank">here</a> to
+									look for your image url
+								</div>
+							</div>
+							<!-- prettier-ignore -->
+							<select value="<%=item[0].category%>" id="itemEditCategory" name="itemEditCategory" style="height:24px;" required>
+								<%categories.forEach((category)=>{
+									%><option value="<%= category.category %>">
+										<%=category.category%>
+									</option><%
+								})%>
+							</select>
+							<input type="hidden" value="<%=item[0].itemid%>" name="itemId" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+		// image preview
+		const itemEditPreview = document.querySelector("#itemEditPreview");
+		const itemEditImage = document.querySelector("#itemEditImage");
+		itemEditImage.addEventListener("input", () => {
+			itemEditPreview.src = itemEditImage.value;
+		});
+
+		//category colour preview
+		function isDark(hex) { const [r, g, b] = hex.replace('#',
+		'').match(/.{2}/g).map(x => parseInt(x, 16) / 255); const luminance = 0.2126
+		* r + 0.7152 * g + 0.0722 * b; return luminance < 0.5;}
+
+		const itemEditCategory = document.querySelector("#itemEditCategory");
+		const itemEditRight = document.querySelector(".itemEditRight");
+		const itemEditLabel= document.querySelector(".itemEditLabel")
+
+		const categories = <%-JSON.stringify(categories)%>;
+
+		itemEditCategory.addEventListener("change", async () => {
+			const newColour = categories.filter((category)=>category.category==itemEditCategory.value)[0].colour
+			itemEditRight.style.backgroundColor = newColour;
+
+			if (isDark(newColour)){
+				itemEditLabel.style.color="white"
+				document.querySelector(".editClickHereDiv").style.color="white"
+			} else{
+				itemEditLabel.style.color="black"
+				document.querySelector(".editClickHereDiv").style.color="black"
+			}
+		});
+
+		//category select default
+		const categorySelect = document.querySelector("#itemEditCategory");
+		categorySelect.value = "<%=item[0].category%>";
+	</script>
+</html>

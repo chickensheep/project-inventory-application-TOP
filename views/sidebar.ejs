@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<%function isSelectedCategory(bla){ if (category==bla){ return true } else {
+		return false } }%>
+		<%function isAll(){
+			if (category=="All"||category==undefined){
+				return true
+			} else{
+				return false
+			}
+		}%>
+		<div class="sidebarDiv">
+			<div class="sidebarContent">
+				<div style="font-size: 30px">Categories:</div>
+				<div class="sidebarCategoryDiv">
+					<a href="./?category=All" class="sidebarCategory" style="text-decoration:<%=isAll()?"underline":"none"%>">All</a>
+					<%categories.forEach((element)=>{ %><a
+						href="./?category=<%=element.category%>"
+						class="sidebarCategory"
+						style="text-decoration:<%=isSelectedCategory(element.category)?"underline":"none"%>"
+						><%=element.category%></a
+					><% })%>
+				</div>
+			</div>
+			<div class="sidebarIconDiv">
+				<img src="/image/craftingTable.png" alt="" class="sidebarIcon" />
+			</div>
+		</div>
+	</body>
+	<script>
+		const sidebarIcon = document.querySelector(".sidebarIcon");
+		const sidebarDiv = document.querySelector(".sidebarDiv");
+
+		sidebarIcon.addEventListener("click", () => {
+			sidebarDiv.classList.toggle("shown");
+		});
+	</script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Items Form</title>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<header>Items Form</header>
+			<form action="/items/new" class="itemsForm" method="POST">
+				<div class="itemsFormLeft">
+					<img
+						src=""
+						alt=""
+						class="itemsFormPreview"
+						onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"
+						onload="this.style.display='block'; this.nextElementSibling.style.display='none'"
+					/>
+					<span style="display: none; padding-bottom: 20px"
+						>No image found!!!</span
+					>
+					<div class="itemsFormButtons">
+						<button class="smallButton" type="submit">Confirm</button>
+						<a href="/items/" class="smallButton">Cancel</a>
+					</div>
+				</div>
+				<div class="itemsFormRight">
+					<div class="itemsFormLabel">
+						<label for="itemsFormName">Name: </label>
+						<label for="itemsFormImage">Image url: </label>
+						<label for="itemsFormCategory">Category: </label>
+					</div>
+					<div class="itemsFormInput">
+						<input
+							type="text"
+							id="itemsFormName"
+							name="itemsFormName"
+							required
+						/>
+						<div class="itemsFormImageDiv">
+							<input
+								type="text"
+								id="itemsFormImage"
+								name="itemsFormImage"
+								required
+							/>
+							<div>
+								Click
+								<a href="https://mc.nerothe.com" target="_blank">here</a> to
+								look for your image url
+							</div>
+						</div>
+						<select
+							name="itemsFormCategory"
+							id="itemsFormCategory"
+							value=""
+							selected
+							required
+						>
+							<% categories.forEach((element)=>{ %>
+							<option value="<%=element.category%>">
+								<%=element.category%>
+							</option>
+							<% }) %>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script>
+		const itemsFormImage = document.querySelector("#itemsFormImage");
+		const itemsFormPreview = document.querySelector(".itemsFormPreview");
+
+		itemsFormImage.addEventListener("input", () => {
+			itemsFormPreview.src = itemsFormImage.value;
+		});
+	</script>
+</html>

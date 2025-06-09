@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Items</title>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<%function isDark(hex) { const [r, g, b] = hex.replace('#',
+		'').match(/.{2}/g).map(x => parseInt(x, 16) / 255); const luminance = 0.2126
+		* r + 0.7152 * g + 0.0722 * b; return luminance < 0.5; }%>
+		<div class="container">
+			<%-include ("navigationBar")%>
+			<%-include("sidebar",{categories:categories})%>
+			<div class="itemsHeader">
+				<header>Items</header>
+				<a href="./new" class="addButton">+ Add items</a>
+			</div>
+			<div class="itemsDiv">
+				<%items.forEach((item)=>{ %>
+				<a class="itemDiv" href="./<%=item.item.replace(/\s+/g, "")%>/">
+					<!-- prettier-ignore -->
+					<div class="itemImageDiv">
+						<img src="<%=item.image%>" alt="<%=item.item%>"/ class="itemImage">
+					</div>
+					<!-- prettier-ignore -->
+					<div class="itemName" style="background-color:<%=item.colour%> ; color:<%= isDark(item.colour)?"white":"black"%>"><%=item.item%></div>
+				</a>
+				<% })%>
+			</div>
+		</div>
+	</body>
+</html>

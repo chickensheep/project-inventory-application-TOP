@@ -1,0 +1,23 @@
+{
+	"name": "project-inventory-application-top",
+	"version": "1.0.0",
+	"description": "this is ye project inventory application. ehhhh dunno like wats the purpose of this like i feel like its the same as the project shopping cart but ehhhhh u can edit the items in the store la and category oso yeye oanonogfnwqroi",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon app.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"ejs": "^3.1.10",
+		"express": "^5.1.0",
+		"express-validator": "^7.2.1",
+		"pg": "^8.16.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.10"
+	}
+}
