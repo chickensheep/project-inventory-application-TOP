@@ -5,6 +5,9 @@ require("dotenv").config();
 const { Client } = require("pg");
 
 const createAndInsertTable = `
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS categories;
+
 CREATE TABLE categories(
     categoryid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     category VARCHAR,
@@ -44,17 +47,17 @@ VALUES
 `;
 
 const main = async () => {
-	console.log("dropping and creating db...");
-	const client = new Client({
-		connectionString: process.env.DB_MAIN_URL,
-	});
-	await client.connect();
-	await client.query(
-		"DROP DATABASE IF EXISTS project_inventory_application_top"
-	);
-	await client.query("CREATE DATABASE project_inventory_application_top");
-	await client.end();
-	console.log("drop and create db DONE!!!");
+	// console.log("dropping and creating db...");
+	// const client = new Client({
+	// 	connectionString: process.env.DB_MAIN_URL,
+	// });
+	// await client.connect();
+	// await client.query(
+	// 	"DROP DATABASE IF EXISTS project_inventory_application_top"
+	// );
+	// await client.query("CREATE DATABASE project_inventory_application_top");
+	// await client.end();
+	// console.log("drop and create db DONE!!!");
 
 	console.log("creating and inserting CATEGORIES and ITEMS table...");
 	const newClient = new Client({
